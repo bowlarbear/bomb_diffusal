@@ -34,21 +34,29 @@ fn main() {
             if guess == correct_wire {
                 println!("You diffused the bomb and earned a promotion!");
                 break;
-            } else {
-                attempts += 1;
-                println!("Wrong wire recruit! You only have 1 attempt remaining!.");
-                thread::sleep(Duration::from_secs(3)); // Add a delay after wrong guess
             }
-        }        
-        
-        // If two failed attempts, the bomb explodes
-        if attempts == max_attempts {
-            println!("BOOM! Oh dear. You are dead.");
-            thread::sleep(Duration::from_secs(3)); // Add a 2-second delay for dramatic effect
+            
+            if guess != correct_wire {
+                attempts += 1;
+                if attempts < 2 {
+                    println!("Wrong wire, recruit! You have one more attempt remaining.");
+                } else {
+                     // If two failed attempts, the bomb explodes
+                    if attempts == max_attempts {
+                    println!("BOOM! Oh dear. You are dead.");
+                    thread::sleep(Duration::from_secs(3)); // Add a 2-second delay for dramatic effect
+                    }
+                }
+                
+            }
+            
+            
         }        
         
         // Restart the game
         println!("Next recruit...Step on in!\n");
-        thread::sleep(Duration::from_secs(3)); // Add a 2-second delay before restarting
+        thread::sleep(Duration::from_secs(3)); // Add a 2-second delay before restarting      
+        
+        
     }
 }
